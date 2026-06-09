@@ -7,7 +7,7 @@ var GLOBAL_user;
      if(_user){
          console.log("User is logged in")
          GLOBAL_user = _user;
-         firebase.database().ref('/Highscores/game1/users/' + GLOBAL_user.uid).update(
+         firebase.database().ref('/Highscores/userInfo/' + GLOBAL_user.uid).update(
             {
                 name: GLOBAL_user.displayName
             }

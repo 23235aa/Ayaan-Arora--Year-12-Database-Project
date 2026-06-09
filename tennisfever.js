@@ -184,6 +184,13 @@ function drawGameOver() {
 	tennisBalls.visible = false;
 	textSize(25)
 	text("Your Score Was " + score, 200, 200)
+	firebase.database().ref('/Highscores/tennisFever/' + GLOBAL_user.uid).update(
+		{
+		  username: Name_field,
+		  age: userAge,
+		  tennisfeverscore:score
+		}
+		)
 }
 function shootTennisBalls() {
 	balls = new Sprite(player_1.x, player_1.y, 10);
