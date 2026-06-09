@@ -184,13 +184,15 @@ function drawGameOver() {
 	tennisBalls.visible = false;
 	textSize(25)
 	text("Your Score Was " + score, 200, 200)
-	firebase.database().ref('/Highscores/tennisFever/' + GLOBAL_user.uid).update(
-		{
-		  username: Name_field,
-		  age: userAge,
-		  tennisfeverscore:score
-		}
-		)
+	firebase.database().ref('/Highscores/userInfo/' + GLOBAL_user.uid).once('value').then(function(snapshot){
+		//Tells javascript wheere to get the info from, in this case the userInfo brach
+		//The .then(function(snaphot)) runs the code after we get the data
+var userData = snapshot.val();//the .val turns the snapshot into a object and I store the object inside the varaible userData
+firebase.database().ref('/Highscores/tennisfever/'+ GLOBAL_user.uid).update({//Creates and writes into the tennis fever branch
+	username:userData.username,//Writes the username that is stored inside the userData varaible
+	tennisfeverscore:score //Writes the score
+})
+	})
 }
 function shootTennisBalls() {
 	balls = new Sprite(player_1.x, player_1.y, 10);
