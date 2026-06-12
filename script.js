@@ -23,4 +23,6 @@ firebase.database().ref('/Highscores/userInfo/' + GLOBAL_user.uid).update(
   age: userAge
 }
 )
+//Move to the game page after the data is processed
+window.location.href= "gamePage.html";
 }
