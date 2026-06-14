@@ -164,6 +164,16 @@ function endScreen(){
     text("your score was: "+score, 50, 110);
     textSize(14);
     text("press any key to restart", 50, 150);
+    firebase.database().ref('/Highscores/userInfo/' + GLOBAL_user.uid).once('value').then(function(snapshot){
+		//Tells javascript wheere to get the info from, in this case the userInfo brach
+		//The .then(function(snaphot)) runs the code after we get the data
+var userData2 = snapshot.val();//the .val turns the snapshot into a object and I store the object inside the varaible userData
+firebase.database().ref('/Highscores/Geodash/'+ GLOBAL_user.uid).update({//Creates and writes into the tennis fever branch
+	username:userData2.username,//Writes the username that is stored inside the userData varaible
+	userAge:userData2.age,
+	Geodashscore:score //Writes the score
+})
+	})
 }
 
 function resetGame(){

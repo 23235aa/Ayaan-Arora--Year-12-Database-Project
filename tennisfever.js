@@ -190,13 +190,14 @@ function drawGameOver() {
 var userData = snapshot.val();//the .val turns the snapshot into a object and I store the object inside the varaible userData
 firebase.database().ref('/Highscores/tennisfever/'+ GLOBAL_user.uid).update({//Creates and writes into the tennis fever branch
 	username:userData.username,//Writes the username that is stored inside the userData varaible
+	userAge:userData.age,
 	tennisfeverscore:score //Writes the score
 })
 	})
 }
 function shootTennisBalls() {
 	balls = new Sprite(player_1.x, player_1.y, 10);
-	balls.color = 'red'
+	balls.color = 'green'
 	balls.vel.x = 5;
 	//The tennis balls head toward the way the mouse is pointin. callculates the angle between the balls and the mouse.
 	//By recognizing this the ball is able to head towards the mouse	 

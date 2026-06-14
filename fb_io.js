@@ -26,4 +26,4 @@ var GLOBAL_user;
          GLOBAL_user = result.user; //Save the user details object to a global variable
          console.log("User has logged in")
      });
- }
+ }  
