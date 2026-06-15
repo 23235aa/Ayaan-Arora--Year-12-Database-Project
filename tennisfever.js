@@ -165,7 +165,7 @@ function drawGame() {
 	//This is becuase it minuses the time of the setup function from the actual play time, making the timer always start at 0.
 	countdown = timeLimit - currentTime //Countdown is the time limit - the amount of time passed.
 	//If the time limit has passed, keep the countdown at 0
-	if (countdown <= 0) {
+	if (countdown <= 0 && gameState === 'play') {
 		countdown = 0;
 		gameState = 'gameover' // If the time limit is 0 it goes to the game over screen becuase the game ends.
 	}
@@ -184,7 +184,7 @@ function drawGameOver() {
 	tennisBalls.visible = false;
 	textSize(25)
 	text("Your Score Was " + score, 200, 200)
-	firebase.database().ref('/Highscores/userInfo/' + GLOBAL_user.uid).once('value').then(function(snapshot){
+		firebase.database().ref('/Highscores/userInfo/' + GLOBAL_user.uid).once('value').then(function(snapshot){
 		//Tells javascript wheere to get the info from, in this case the userInfo brach
 		//The .then(function(snaphot)) runs the code after we get the data
 var userData = snapshot.val();//the .val turns the snapshot into a object and I store the object inside the varaible userData
@@ -194,7 +194,7 @@ firebase.database().ref('/Highscores/tennisfever/'+ GLOBAL_user.uid).update({//C
 	tennisfeverscore:score //Writes the score
 })
 	})
-}
+	}
 function shootTennisBalls() {
 	balls = new Sprite(player_1.x, player_1.y, 10);
 	balls.color = 'green'
