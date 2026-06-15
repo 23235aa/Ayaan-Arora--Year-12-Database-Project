@@ -41,5 +41,9 @@ function fb_displayHighScores(snaphot){
 //data is a single user entry from the snapshot
 function fb_showOneScore(data){
     let entry= data.val()
-    HTML_OUTPUT.innerHTML += entry.username + ": " + entry.tennisfeverscore + "<br>"
+    document.getElementById('HTML_OUTPUT').innerHTML += entry.username + ": " + entry.tennisfeverscore + "<br>"
+}
+if (document.getElementById('HTML_OUTPUT')){
+    fb_readHighScores(); //When it lands on a page that has the id called 'HTML_OUTPUT' it does the fb_readHighscores function
+    //In our case this happens when it lands on the tennisLeaderboard.html
 }
