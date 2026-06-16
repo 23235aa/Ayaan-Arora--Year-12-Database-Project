@@ -57,7 +57,7 @@ function fb_readHighScores2(){//The function reads the high scores of the users 
 function fb_displayHighScores2(snaphot2){
     snaphot2.forEach(fb_showOneScore2)
 }
-//his function gets called for each user entry
+//This function gets called for each user entry
 //data2 is a single user entry from the snapshot
 function fb_showOneScore2(data2){
     let entry2= data2.val()
