@@ -31,7 +31,7 @@ function fb_readHighScores(){
     firebase.database().ref('/Highscores/tennisfever').orderByChild('tennisfeverscore').limitToLast(3).once('value',fb_displayHighScores)
     //Tells the computer to get the information from the tennisfever branch in firebase
     //The .orderByChild tells the computer to order the users score that they got for tennisfever from lowest to highest
-    //The limiTolast(3) gets the 3 highest scores
+    //The limiTolast(3) gets the 3 highest score
 }
 //Gets the top three users with the highest score for tennis fever
 function fb_displayHighScores(snaphot){
