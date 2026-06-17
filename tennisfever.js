@@ -191,7 +191,7 @@ var userData = snapshot.val();//the .val turns the snapshot into a object and I 
 firebase.database().ref('/Highscores/tennisfever/'+ GLOBAL_user.uid).update({//Creates and writes into the tennis fever branch
 	username:userData.username,//Writes the username that is stored inside the userData varaible
 	userAge:userData.age,
-	tennisfeverscore:score //Writes the score
+	tennisfeverscore:score*-1 //Writes the score. The score is multiplied by -1 to store it as a negative so it can be displayed from highest to lowest in the leaderbaord
 })
 	})
 	}
@@ -199,7 +199,7 @@ function shootTennisBalls() {
 	balls = new Sprite(player_1.x, player_1.y, 10);
 	balls.color = 'green'
 	balls.vel.x = 5;
-	//The tennis balls head toward the way the mouse is pointin. callculates the angle between the balls and the mouse.
+	//The tennis balls head toward the way the mouse is pointing. calculates the angle between the balls and the mouse.
 	//By recognizing this the ball is able to head towards the mouse	 
 	balls.direction = balls.angleTo(mouse)
 	//Added this feature so that the tennis balls don't collide with the player and go in weird directions.

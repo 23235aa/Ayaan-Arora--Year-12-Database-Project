@@ -5,7 +5,7 @@
 //)
 
 function writeForm(){
-     //Check if the user is logged in
+     //Check if the user is logged in by seeing if Global_user is empty
   if (!GLOBAL_user) {
     alert("Please log in before submitting the form!");
     return; 
@@ -41,7 +41,8 @@ function fb_displayHighScores(snaphot){
 //data is a single user entry from the snapshot
 function fb_showOneScore(data){
     let entry= data.val()
-    document.getElementById('HTML_OUTPUT').innerHTML += entry.username + ": " + entry.tennisfeverscore + "<br>"
+    document.getElementById('HTML_OUTPUT').innerHTML += entry.username + ": " + entry.tennisfeverscore*-1 + "<br>" //To show the scores in positive when it is displayed on the leaderboard.
+    //Multliplying it by negative is what allows the computer to store the score from highest to lowest
 }
 if (document.getElementById('HTML_OUTPUT')){
     fb_readHighScores(); //When it lands on a page that has the id called 'HTML_OUTPUT' it does the fb_readHighscores function
