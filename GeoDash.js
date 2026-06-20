@@ -6,6 +6,7 @@
 //
 // Written by Mr Britton
 /*******************************************************/
+let scoreSavedGeodash = false;
 console.log("Running the game");
 
 
@@ -164,16 +165,24 @@ function endScreen(){
     text("your score was: "+score, 50, 110);
     textSize(14);
     text("press any key to restart", 50, 150);
-    firebase.database().ref('/Highscores/userInfo/' + GLOBAL_user.uid).once('value').then(function(snapshot){
-		//Tells javascript where to get the info from, in this case the userInfo brach
-		//The .then(function(snaphot)) runs the code after we get the data
-var userData2 = snapshot.val();//the .val turns the snapshot into a object and I store the object inside the varaible userData
-firebase.database().ref('/Highscores/Geodash/'+ GLOBAL_user.uid).update({//Creates and writes into the tennis fever branch
-	username:userData2.username,//Writes the username that is stored inside the userData varaible
-	userAge:userData2.age,
-	Geodashscore:score*-1 //Writes the score. Store the score as a negative so I can display it in order on the leaderboard
-})
-	})
+   if(!scoreSavedGeodash){//checks if scoreSaved is still false
+    scoreSavedGeodash = true;// Turns the scoreSaved to true so the if statment can't be triggered again
+		//This stops the score being saved multiple times
+    saveScoreGeodash() //Tells it to go to saveScoreGeodash function
+   }
+}
+async function saveScoreGeodash(){
+	//Await waits until ifrebase gets the information from the userInfo branch
+	var snapshot = await firebase.database().ref('/Highscores/userInfo/' + GLOBAL_user.uid).once('value');	
+    var userDataGeodash = snapshot.val(); //.val turns the snapshot into a usable object and we strore that object in a varaible
+	//Here it writes the info into a new branch called tennis fever. We await(pause) until the info is actually done
+	//Then we console log "save score" to see if it worked
+    await firebase.database().ref('/Highscores/Geodash/' + GLOBAL_user.uid).update({
+        username: userDataGeodash.username,
+        userAge: userDataGeodash.age,
+        Geodashscore: score * -1
+    });
+	console.log("score saved")
 }
 
 function resetGame(){

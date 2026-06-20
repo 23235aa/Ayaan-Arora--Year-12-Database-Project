@@ -8,6 +8,7 @@ let timeLimit = 10; // The timer has a time limit for 10 seconds
 let countdown = 0; // This keeps track of the time limit
 let currentTime // the amount of time passed since the setup function is called 
 let score = 0; // This is the score varible that I made. It's use comes further down.
+let scoreSaved = false //Stops the score from being saved multiple times a game
 function preload() {
 
 	imgTennisplayer = loadImage('assets/images/tennisplayer.png.png');
@@ -184,16 +185,11 @@ function drawGameOver() {
 	tennisBalls.visible = false;
 	textSize(25)
 	text("Your Score Was " + score, 200, 200)
-	firebase.database().ref('/Highscores/userInfo/' + GLOBAL_user.uid).once('value').then(function (snapshot) {
-		//Tells javascript wheere to get the info from, in this case the userInfo brach
-		//The .then(function(snaphot)) runs the code after we get the data
-		var userData = snapshot.val();//the .val turns the snapshot into a object and I store the object inside the varaible userData
-		firebase.database().ref('/Highscores/tennisfever/' + GLOBAL_user.uid).update({//Creates and writes into the tennis fever branch
-			username: userData.username,//Writes the username that is stored inside the userData varaible
-			userAge: userData.age,
-			tennisfeverscore: score * -1 //Writes the score. The score is multiplied by -1 to store it as a negative so it can be displayed from highest to lowest in the leaderbaord
-		})
-	})
+	if (!scoreSaved){//checks if scoreSaved is still false
+		scoreSaved=true// Turns the scoreSaved to true so the if statment can't be triggered again
+		//This stops the score being saved multiple times
+		saveScore() //Tells it to go to saveScore function
+	}
 }
 function shootTennisBalls() {
 	balls = new Sprite(player_1.x, player_1.y, 10);
@@ -209,4 +205,18 @@ function shootTennisBalls() {
 	tennisBalls.add(balls);
 	balls.life = 60;
 
+}
+//This function actually saves and writes the scores into firebase for tennisfever
+async function saveScore(){
+	//Await waits until ifrebase gets the information from the userInfo branch
+	var snapshot = await firebase.database().ref('/Highscores/userInfo/' + GLOBAL_user.uid).once('value');	
+    var userData = snapshot.val(); //.val turns the snapshot into a usable object and we strore that object in a varaible
+	//Here it writes the info into a new branch called tennis fever. We await(pause) until the info is actually done
+	//Then we console log "save score" to see if it worked
+    await firebase.database().ref('/Highscores/tennisfever/' + GLOBAL_user.uid).update({
+        username: userData.username,
+        userAge: userData.age,
+        tennisfeverscore: score * -1
+    });
+	console.log("score saved")
 }
