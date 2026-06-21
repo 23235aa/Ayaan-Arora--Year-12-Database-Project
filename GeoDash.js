@@ -178,9 +178,9 @@ async function saveScoreGeodash(){
 	//Here it writes the info into a new branch called tennis fever. We await(pause) until the info is actually done
 	//Then we console log "save score" to see if it worked
     await firebase.database().ref('/Highscores/Geodash/' + GLOBAL_user.uid).update({
-        username: userDataGeodash.username,
-        userAge: userDataGeodash.age,
-        Geodashscore: score * -1
+        username: userDataGeodash.username, //Gets the username from the varaible we stored the snapshot in
+        userAge: userDataGeodash.age, //Gets the age from the varaible we stored the snapshot in
+        Geodashscore: score * -1 // We multiply the score by negative 1 so the scores are stored in negative. This helps display them in order
     });
 	console.log("score saved")
 }

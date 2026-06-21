@@ -28,10 +28,10 @@ function writeForm() {
 }
 //The function reads the high scores of the users from firbase
 function fb_readHighScoresTennisFever() {
-    firebase.database().ref('/Highscores/tennisfever').orderByChild('tennisfeverscore').limitToLast(3).once('value', fb_displayHighScoresTennisFever)
+    firebase.database().ref('/Highscores/tennisfever').orderByChild('tennisfeverscore').limitToFirst(3).once('value', fb_displayHighScoresTennisFever)
     //Tells the computer to get the information from the tennisfever branch in firebase
     //The .orderByChild tells the computer to order the users score that they got for tennisfever from lowest to highest
-    //The limiTolast(3) gets the 3 highest score
+    //The limiToLast(3) gets the 3 highest score
 }
 //Gets the top three users with the highest score for tennis fever
 function fb_displayHighScoresTennisFever(snaphot) {
@@ -49,10 +49,10 @@ if (document.getElementById('HTML_OUTPUT')) {
     //In our case this happens when it lands on the tennisLeaderboard.html
 }
 function fb_readHighScoresGeoDash() {//The function reads the high scores of the users from firbase for Geodash
-    firebase.database().ref('/Highscores/Geodash').orderByChild('Geodashscore').limitToLast(3).once('value', fb_displayHighScoresGeoDash)
+    firebase.database().ref('/Highscores/Geodash').orderByChild('Geodashscore').limitToFirst(3).once('value', fb_displayHighScoresGeoDash)
     //Tells the computer to get the information from the Geodash branch in firebase
     //The .orderByChild tells the computer to order the users score that they got for tennisfever from lowest to highest
-    //The limiTolast(3) gets the 3 highest scores
+    //The limiToLast(3) gets the 3 highest scores
 }
 //Gets the top three users with the highest score for tennis fever
 function fb_displayHighScoresGeoDash(snaphot2) {
