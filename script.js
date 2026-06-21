@@ -34,8 +34,8 @@ function fb_readHighScoresTennisFever() {
     //The limiToLast(3) gets the 3 highest score
 }
 //Gets the top three users with the highest score for tennis fever
-function fb_displayHighScoresTennisFever(snaphot) {
-    snaphot.forEach(fb_showOneScoreTennisFever)
+function fb_displayHighScoresTennisFever(snapshot) {
+    snapshot.forEach(fb_showOneScoreTennisFever)
 }
 //This function gets called for each user entry
 //data is a single user entry from the snapshot
@@ -55,8 +55,8 @@ function fb_readHighScoresGeoDash() {//The function reads the high scores of the
     //The limiToLast(3) gets the 3 highest scores
 }
 //Gets the top three users with the highest score for tennis fever
-function fb_displayHighScoresGeoDash(snaphot2) {
-    snaphot2.forEach(fb_showOneScoreGeoDash)
+function fb_displayHighScoresGeoDash(snapshot2) {
+    snapshot2.forEach(fb_showOneScoreGeoDash)
 }
 //This function gets called for each user entry
 //data2 is a single user entry from the snapshot

@@ -166,7 +166,7 @@ function drawGame() {
 	//This is becuase it minuses the time of the setup function from the actual play time, making the timer always start at 0.
 	countdown = timeLimit - currentTime //Countdown is the time limit - the amount of time passed.
 	//If the time limit has passed, keep the countdown at 0
-	if (countdown <= 0 && gameState === 'play') {
+	if (countdown <= 0) {
 		countdown = 0;
 		gameState = 'gameover' // If the time limit is 0 it goes to the game over screen becuase the game ends.
 	}
@@ -208,7 +208,7 @@ function shootTennisBalls() {
 }
 //This function actually saves and writes the scores into firebase for tennisfever
 async function saveScore(){
-	//Await waits until ifrebase gets the information from the userInfo branch
+	//Await waits until frebase gets the information from the userInfo branch
 	var snapshot = await firebase.database().ref('/Highscores/userInfo/' + GLOBAL_user.uid).once('value');	
     var userData = snapshot.val(); //.val turns the snapshot into a usable object and we strore that object in a varaible
 	//Here it writes the info into a new branch called tennis fever. We await(pause) until the info is actually done
