@@ -17,10 +17,13 @@ function writeForm() {
     console.log(userAge)
 
     console.log(GLOBAL_user.displayName + " username is  " + Name_field)
+    //Updates the users info that they got from the form to the firebase in the userInfo branch
     firebase.database().ref('/Highscores/userInfo/' + GLOBAL_user.uid).update(
         {
             username: Name_field,
-            age: userAge
+            age: userAge,
+            profilePicture: GLOBAL_user.photoURL
+
         }
     )
     //Move to the game page after the data is processed
@@ -37,11 +40,11 @@ function fb_readHighScoresTennisFever() {
 function fb_displayHighScoresTennisFever(snapshot) {
     snapshot.forEach(fb_showOneScoreTennisFever)
 }
-//This function gets called for each user entry
+//This function gets called for each user entry for the top three score
 //data is a single user entry from the snapshot
 function fb_showOneScoreTennisFever(data) {
     let entry = data.val()
-    document.getElementById('HTML_OUTPUT').innerHTML += entry.username + ": " + entry.tennisfeverscore * -1 + "<br>" //To show the scores in positive when it is displayed on the leaderboard.
+    document.getElementById('HTML_OUTPUT').innerHTML += entry.username + ": " + entry.tennisfeverscore * -1 + document.getElementById("user-avatar").src = GLOBAL_user.PhotoURL + "<br>" //To show the scores in positive when it is displayed on the leaderboard.
     //Multliplying it by negative is what allows the computer to store the score from highest to lowest
 }
 if (document.getElementById('HTML_OUTPUT')) {
