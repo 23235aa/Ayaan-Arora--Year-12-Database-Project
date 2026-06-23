@@ -185,8 +185,8 @@ function drawGameOver() {
 	tennisBalls.visible = false;
 	textSize(25)
 	text("Your Score Was " + score, 200, 200)
-	if (!scoreSaved){//checks if scoreSaved is still false
-		scoreSaved=true// Turns the scoreSaved to true so the if statment can't be triggered again
+	if (!scoreSaved) {//checks if scoreSaved is still false
+		scoreSaved = true// Turns the scoreSaved to true so the if statment can't be triggered again
 		//This stops the score being saved multiple times
 		saveScore() //Tells it to go to saveScore function
 	}
@@ -207,16 +207,18 @@ function shootTennisBalls() {
 
 }
 //This function actually saves and writes the scores into firebase for tennisfever
-async function saveScore(){
-	//Await waits until frebase gets the information from the userInfo branch
-	var snapshot = await firebase.database().ref('/Highscores/userInfo/' + GLOBAL_user.uid).once('value');	
-    var userData = snapshot.val(); //.val turns the snapshot into a usable object and we strore that object in a varaible
+async function saveScore() {
+	//Await waits until frebase gets the information from the userInfo branch. I need this await because without it my snapshot will be empty and then my code will crash.
+//This is because userData will be set as nothing if snapshot is not set
+	var snapshot = await firebase.database().ref('/Highscores/userInfo/' + GLOBAL_user.uid).once('value');
+	var userData = snapshot.val(); //.val turns the snapshot into a usable object and we strore that object in a varaible
 	//Here it writes the info into a new branch called tennis fever. We await(pause) until the info is actually done
 	//Then we console log "save score" to see if it worked
-    await firebase.database().ref('/Highscores/tennisfever/' + GLOBAL_user.uid).update({
-        username: userData.username,
-        userAge: userData.age,
-        tennisfeverscore: score * -1
-    });
+	await firebase.database().ref('/Highscores/tennisfever/' + GLOBAL_user.uid).update({
+		username: userData.username,
+		userAge: userData.age,
+		userProfilePicture: userData.profilePicture,
+		tennisfeverscore: score * -1 //Multiply by negative one to display the scores in order
+	});
 	console.log("score saved")
 }

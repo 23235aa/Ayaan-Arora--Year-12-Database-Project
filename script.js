@@ -1,8 +1,3 @@
-//firebase.database().ref('/').set(
-//{
-//message: "Hello World"
-//}
-//)
 
 function writeForm() {
     //Check if the user is logged in by seeing if Global_user is empty
@@ -17,10 +12,13 @@ function writeForm() {
     console.log(userAge)
 
     console.log(GLOBAL_user.displayName + " username is  " + Name_field)
+    //Updates the users info that they got from the form to the firebase in the userInfo branch
     firebase.database().ref('/Highscores/userInfo/' + GLOBAL_user.uid).update(
         {
             username: Name_field,
-            age: userAge
+            age: userAge,
+            profilePicture: GLOBAL_user.photoURL
+
         }
     )
     //Move to the game page after the data is processed
@@ -28,7 +26,7 @@ function writeForm() {
 }
 //The function reads the high scores of the users from firbase
 function fb_readHighScoresTennisFever() {
-    firebase.database().ref('/Highscores/tennisfever').orderByChild('tennisfeverscore').limitToFirst(3).once('value', fb_displayHighScoresTennisFever)
+    firebase.database().ref('/Highscores/tennisfever').orderByChild('tennisfeverscore').limitToFirst(5).once('value', fb_displayHighScoresTennisFever)
     //Tells the computer to get the information from the tennisfever branch in firebase
     //The .orderByChild tells the computer to order the users score that they got for tennisfever from lowest to highest
     //The limiToLast(3) gets the 3 highest score
@@ -37,7 +35,7 @@ function fb_readHighScoresTennisFever() {
 function fb_displayHighScoresTennisFever(snapshot) {
     snapshot.forEach(fb_showOneScoreTennisFever)
 }
-//This function gets called for each user entry
+//This function gets called for each user entry for the top three score
 //data is a single user entry from the snapshot
 function fb_showOneScoreTennisFever(data) {
     let entry = data.val()
@@ -49,7 +47,7 @@ if (document.getElementById('HTML_OUTPUT')) {
     //In our case this happens when it lands on the tennisLeaderboard.html
 }
 function fb_readHighScoresGeoDash() {//The function reads the high scores of the users from firbase for Geodash
-    firebase.database().ref('/Highscores/Geodash').orderByChild('Geodashscore').limitToFirst(3).once('value', fb_displayHighScoresGeoDash)
+    firebase.database().ref('/Highscores/Geodash').orderByChild('Geodashscore').limitToFirst(5).once('value', fb_displayHighScoresGeoDash)
     //Tells the computer to get the information from the Geodash branch in firebase
     //The .orderByChild tells the computer to order the users score that they got for tennisfever from lowest to highest
     //The limiToLast(3) gets the 3 highest scores

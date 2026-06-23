@@ -9,7 +9,7 @@ var GLOBAL_user; //This is the googles user object
          GLOBAL_user = _user;
          firebase.database().ref('/Highscores/userInfo/' + GLOBAL_user.uid).update(
             {
-                name: GLOBAL_user.displayName
+                name: GLOBAL_user.displayName //Sets the actual name of the user that they have for the google account, not their username
             }
          );
 
