@@ -1,8 +1,3 @@
-//firebase.database().ref('/').set(
-//{
-//message: "Hello World"
-//}
-//)
 
 function writeForm() {
     //Check if the user is logged in by seeing if Global_user is empty
@@ -31,7 +26,7 @@ function writeForm() {
 }
 //The function reads the high scores of the users from firbase
 function fb_readHighScoresTennisFever() {
-    firebase.database().ref('/Highscores/tennisfever').orderByChild('tennisfeverscore').limitToFirst(3).once('value', fb_displayHighScoresTennisFever)
+    firebase.database().ref('/Highscores/tennisfever').orderByChild('tennisfeverscore').limitToFirst(5).once('value', fb_displayHighScoresTennisFever)
     //Tells the computer to get the information from the tennisfever branch in firebase
     //The .orderByChild tells the computer to order the users score that they got for tennisfever from lowest to highest
     //The limiToLast(3) gets the 3 highest score
@@ -52,7 +47,7 @@ if (document.getElementById('HTML_OUTPUT')) {
     //In our case this happens when it lands on the tennisLeaderboard.html
 }
 function fb_readHighScoresGeoDash() {//The function reads the high scores of the users from firbase for Geodash
-    firebase.database().ref('/Highscores/Geodash').orderByChild('Geodashscore').limitToFirst(3).once('value', fb_displayHighScoresGeoDash)
+    firebase.database().ref('/Highscores/Geodash').orderByChild('Geodashscore').limitToFirst(5).once('value', fb_displayHighScoresGeoDash)
     //Tells the computer to get the information from the Geodash branch in firebase
     //The .orderByChild tells the computer to order the users score that they got for tennisfever from lowest to highest
     //The limiToLast(3) gets the 3 highest scores
