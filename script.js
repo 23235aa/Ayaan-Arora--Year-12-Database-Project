@@ -39,7 +39,9 @@ function fb_displayHighScoresTennisFever(snapshot) {
 //data is a single user entry from the snapshot
 function fb_showOneScoreTennisFever(data) {
     let entry = data.val()
-    document.getElementById('HTML_OUTPUT').innerHTML += entry.username + ": " + entry.tennisfeverscore * -1 + "<br>" //To show the scores in positive when it is displayed on the leaderboard.
+    document.getElementById('HTML_OUTPUT').innerHTML +=
+     "<img src='"+ entry.userProfilePicture + "'width = '50' height = '50'>" + entry.username + ": " +
+      entry.tennisfeverscore * -1 + "<br>" //To show the scores in positive when it is displayed on the leaderboard.
     //Multliplying it by negative is what allows the computer to store the score from highest to lowest
 }
 if (document.getElementById('HTML_OUTPUT')) {

@@ -18,8 +18,25 @@ function endGame(_player, _obstacle){
     obstacles.removeAll();
     // Put your database writes here:
 
+if(!scoreSavedGeodash){//checks if scoreSaved is still false
+    scoreSavedGeodash = true;// Turns the scoreSaved to true so the if statment can't be triggered again
+		//This stops the score being saved multiple times
+    saveScoreGeodash() //Tells it to go to saveScoreGeodash function
+   }
 
-
+}
+async function saveScoreGeodash(){
+	//Await waits until firebase gets the information from the userInfo branch
+	var snapshot = await firebase.database().ref('/Highscores/userInfo/' + GLOBAL_user.uid).once('value');	
+    var userDataGeodash = snapshot.val(); //.val turns the snapshot into a usable object and we strore that object in a varaible
+	//Here it writes the info into a new branch called tennis fever. We await(pause) until the info is actually done
+	//Then we console log "save score" to see if it worked
+    await firebase.database().ref('/Highscores/Geodash/' + GLOBAL_user.uid).update({
+        username: userDataGeodash.username, //Gets the username from the varaible we stored the snapshot in
+        userAge: userDataGeodash.age, //Gets the age from the varaible we stored the snapshot in
+        Geodashscore: score * -1 // We multiply the score by negative 1 so the scores are stored in negative. This helps display them in order
+    });
+	console.log("score saved")
 }
 
 
@@ -165,33 +182,18 @@ function endScreen(){
     text("your score was: "+score, 50, 110);
     textSize(14);
     text("press any key to restart", 50, 150);
-   if(!scoreSavedGeodash){//checks if scoreSaved is still false
-    scoreSavedGeodash = true;// Turns the scoreSaved to true so the if statment can't be triggered again
-		//This stops the score being saved multiple times
-    saveScoreGeodash() //Tells it to go to saveScoreGeodash function
-   }
 }
-async function saveScoreGeodash(){
-	//Await waits until ifrebase gets the information from the userInfo branch
-	var snapshot = await firebase.database().ref('/Highscores/userInfo/' + GLOBAL_user.uid).once('value');	
-    var userDataGeodash = snapshot.val(); //.val turns the snapshot into a usable object and we strore that object in a varaible
-	//Here it writes the info into a new branch called tennis fever. We await(pause) until the info is actually done
-	//Then we console log "save score" to see if it worked
-    await firebase.database().ref('/Highscores/Geodash/' + GLOBAL_user.uid).update({
-        username: userDataGeodash.username, //Gets the username from the varaible we stored the snapshot in
-        userAge: userDataGeodash.age, //Gets the age from the varaible we stored the snapshot in
-        Geodashscore: score * -1 // We multiply the score by negative 1 so the scores are stored in negative. This helps display them in order
-    });
-	console.log("score saved")
-}
+
 
 function resetGame(){
     player = new Sprite(PLAYER_WIDTH*1.2,  SCREEN_HEIGHT/2, PLAYER_WIDTH, PLAYER_HEIGHT, 'd');
     player.color = color("purple");
     player.collides(obstacles, endGame);
     score = 0;
+    scoreSavedGeodash= false; //Resest the scoreSaved to false so it update the new score of the user if they 
+    //play again
 }
 
 /*******************************************************/
 //  END OF APP
-/*******************************************************/
+/*******************************************************/   
