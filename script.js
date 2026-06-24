@@ -62,7 +62,7 @@ function fb_displayHighScoresGeoDash(snapshot2) {
 //data2 is a single user entry from the snapshot
 function fb_showOneScoreGeoDash(data2) {
     let entry2 = data2.val()
-    document.getElementById('HTML_OUTPUT2').innerHTML += entry2.username + ": " + entry2.Geodashscore * -1 + "<br>" // Multiply the score by negative 1 so it displays as a positive number.
+    document.getElementById('HTML_OUTPUT2').innerHTML += "img src='"+ entry2.userProfilePicture + "'width = '50' height = '50'>"+ entry2.username + ": " + entry2.Geodashscore * -1 + "<br>" // Multiply the score by negative 1 so it displays as a positive number.
 }
 if (document.getElementById('HTML_OUTPUT2')) {
     fb_readHighScoresGeoDash() //When it lands on a page that has the id called 'HTML_OUTPUT2' it does the fb_readHighscores2 function

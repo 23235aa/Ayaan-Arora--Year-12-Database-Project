@@ -34,6 +34,7 @@ async function saveScoreGeodash(){
     await firebase.database().ref('/Highscores/Geodash/' + GLOBAL_user.uid).update({
         username: userDataGeodash.username, //Gets the username from the varaible we stored the snapshot in
         userAge: userDataGeodash.age, //Gets the age from the varaible we stored the snapshot in
+        userProfilePicture: userDataGeodash.profilePicture,
         Geodashscore: score * -1 // We multiply the score by negative 1 so the scores are stored in negative. This helps display them in order
     });
 	console.log("score saved")
