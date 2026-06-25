@@ -25,25 +25,26 @@ function writeForm() {
         {
             username: Name_field,
             age: userAge,
-            profilePicture: GLOBAL_user.photoURL
+            profilePicture: GLOBAL_user.photoURL,
+            email: GLOBAL_user.email
 
         }
     )
     //Move to the game page after the data is processed
     window.location.href = "gamePage.html";
 }
-//The function reads the high scores of the users from firbase
+//The function reads the high scores of the users for tennis fever from firebase
 function fb_readHighScoresTennisFever() {
     firebase.database().ref('/Highscores/tennisfever').orderByChild('tennisfeverscore').limitToFirst(5).once('value', fb_displayHighScoresTennisFever)
     //Tells the computer to get the information from the tennisfever branch in firebase
     //The .orderByChild tells the computer to order the users score that they got for tennisfever from lowest to highest
     //The limiToFirst(5) gets the 5 highest score
 }
-//Gets the top three users with the highest score for tennis fever
+//Gets the top five users with the highest score for tennis fever
 function fb_displayHighScoresTennisFever(snapshot) {
     snapshot.forEach(fb_showOneScoreTennisFever)
 }
-//This function gets called for each user entry for the top three score
+//This function gets called for each user entry for the top five scores and then displays their username, profile picture and score
 //data is a single user entry from the snapshot
 function fb_showOneScoreTennisFever(data) {
     let entry = data.val()
@@ -62,12 +63,12 @@ function fb_readHighScoresGeoDash() {//The function reads the high scores of the
     //The .orderByChild tells the computer to order the users score that they got for tennisfever from lowest to highest
     //The limiToFirst(5) gets the 5 highest scores
 }
-//Gets the top three users with the highest score for tennis fever
+//Gets the top 5 users with the highest score for Geo dash
 function fb_displayHighScoresGeoDash(snapshot2) {
     snapshot2.forEach(fb_showOneScoreGeoDash)
 }
-//This function gets called for each user entry
-//data2 is a single user entry from the snapshot
+//This function gets called for each user entry in the top five and displays their username, profile picture and score
+//data2 is a single user entry from the snapshot2
 function fb_showOneScoreGeoDash(data2) {
     let entry2 = data2.val()
     document.getElementById('HTML_OUTPUT2').innerHTML += "<img src='"+ entry2.userProfilePicture + "'width = '50' height = '50'>"+ entry2.username + ": " + entry2.Geodashscore * -1 + "<br>" // Multiply the score by negative 1 so it displays as a positive number.

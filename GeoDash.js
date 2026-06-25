@@ -25,16 +25,17 @@ if(!scoreSavedGeodash){//checks if scoreSaved is still false
    }
 
 }
+//This function updates thee scores and details of the user in the Geodash branch
 async function saveScoreGeodash(){
 	//Await waits until firebase gets the information from the userInfo branch
 	var snapshot = await firebase.database().ref('/Highscores/userInfo/' + GLOBAL_user.uid).once('value');	
     var userDataGeodash = snapshot.val(); //.val turns the snapshot into a usable object and we strore that object in a varaible
-	//Here it writes the info into a new branch called tennis fever. We await(pause) until the info is actually done
+	//Here it writes the info into a new branch called Geodash. We await(pause) until the info is actually done
 	//Then we console log "save score" to see if it worked
     await firebase.database().ref('/Highscores/Geodash/' + GLOBAL_user.uid).update({
         username: userDataGeodash.username, //Gets the username from the varaible we stored the snapshot in
         userAge: userDataGeodash.age, //Gets the age from the varaible we stored the snapshot in
-        userProfilePicture: userDataGeodash.profilePicture,
+        userProfilePicture: userDataGeodash.profilePicture, //
         Geodashscore: score * -1 // We multiply the score by negative 1 so the scores are stored in negative. This helps display them in order
     });
 	console.log("score saved")
