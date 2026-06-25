@@ -15,6 +15,9 @@ function fb_handleLogin(_user) { //This functions runs if the log in state of th
         if (document.getElementById("loginButton")) {
             document.getElementById("loginButton").style.display = "none"; //If the user has already logged into the site before the login button does not appear
         }
+        if(document.getElementById("loginWelcome")){
+            document.getElementById("loginWelcome").style.display="none";
+        }
         //We do this through style.display="none" which hides the login button
 
 
@@ -24,6 +27,9 @@ function fb_handleLogin(_user) { //This functions runs if the log in state of th
         //fb_popupLogin();
         if (document.getElementById("loginButton")) {
             document.getElementById("loginButton").style.display = "block" //If the user is not logged in it displays the button
+        }
+        if(document.getElementById("loginWelcome")){
+            document.getElementById("loginWelcome").style.display="block"
         }
     }
 }
