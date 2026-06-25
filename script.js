@@ -10,6 +10,14 @@ function writeForm() {
     const userAge = document.getElementById("userAge").value;
     console.log("Here")
     console.log(userAge)
+    if (Name_field.trim() === ""){ //Checks if the Name_field is empty, and then sends an alert to fill the field
+        alert("You need a username")
+        return;
+    }
+    if(userAge.trim() ==="" ||userAge <13 || userAge > 100 ) { //Checks if the user gae is less than 13 and more than 100   
+        alert("You have to be between 13 and 100 to use this site")
+        return;
+    }
 
     console.log(GLOBAL_user.displayName + " username is  " + Name_field)
     //Updates the users info that they got from the form to the firebase in the userInfo branch
@@ -29,7 +37,7 @@ function fb_readHighScoresTennisFever() {
     firebase.database().ref('/Highscores/tennisfever').orderByChild('tennisfeverscore').limitToFirst(5).once('value', fb_displayHighScoresTennisFever)
     //Tells the computer to get the information from the tennisfever branch in firebase
     //The .orderByChild tells the computer to order the users score that they got for tennisfever from lowest to highest
-    //The limiToLast(3) gets the 3 highest score
+    //The limiToFirst(5) gets the 5 highest score
 }
 //Gets the top three users with the highest score for tennis fever
 function fb_displayHighScoresTennisFever(snapshot) {
@@ -52,7 +60,7 @@ function fb_readHighScoresGeoDash() {//The function reads the high scores of the
     firebase.database().ref('/Highscores/Geodash').orderByChild('Geodashscore').limitToFirst(5).once('value', fb_displayHighScoresGeoDash)
     //Tells the computer to get the information from the Geodash branch in firebase
     //The .orderByChild tells the computer to order the users score that they got for tennisfever from lowest to highest
-    //The limiToLast(3) gets the 3 highest scores
+    //The limiToFirst(5) gets the 5 highest scores
 }
 //Gets the top three users with the highest score for tennis fever
 function fb_displayHighScoresGeoDash(snapshot2) {
@@ -62,7 +70,7 @@ function fb_displayHighScoresGeoDash(snapshot2) {
 //data2 is a single user entry from the snapshot
 function fb_showOneScoreGeoDash(data2) {
     let entry2 = data2.val()
-    document.getElementById('HTML_OUTPUT2').innerHTML += "img src='"+ entry2.userProfilePicture + "'width = '50' height = '50'>"+ entry2.username + ": " + entry2.Geodashscore * -1 + "<br>" // Multiply the score by negative 1 so it displays as a positive number.
+    document.getElementById('HTML_OUTPUT2').innerHTML += "<img src='"+ entry2.userProfilePicture + "'width = '50' height = '50'>"+ entry2.username + ": " + entry2.Geodashscore * -1 + "<br>" // Multiply the score by negative 1 so it displays as a positive number.
 }
 if (document.getElementById('HTML_OUTPUT2')) {
     fb_readHighScoresGeoDash() //When it lands on a page that has the id called 'HTML_OUTPUT2' it does the fb_readHighscores2 function
