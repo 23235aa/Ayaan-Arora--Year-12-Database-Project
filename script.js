@@ -1,4 +1,3 @@
-
 function writeForm() {
     //Check if the user is logged in by seeing if Global_user is empty
     if (!GLOBAL_user) {
@@ -76,4 +75,10 @@ function fb_showOneScoreGeoDash(data2) {
 if (document.getElementById('HTML_OUTPUT2')) {
     fb_readHighScoresGeoDash() //When it lands on a page that has the id called 'HTML_OUTPUT2' it does the fb_readHighscores2 function
     //In our case this happens when it lands on the GeoDashLeaderboard.html
+}
+async function showUserNameGamePage(){
+    console.log("test")
+    var snapshot = await firebase.database().ref('/Highscores/userInfo/' + GLOBAL_user.uid).once('value')
+    var userNameShow = snapshot.val()
+    document.getElementById('HTML_OUTPUT4').innerHTML += "Testing words"
 }

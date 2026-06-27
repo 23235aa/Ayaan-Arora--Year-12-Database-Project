@@ -5,7 +5,7 @@ function fb_login() { //Ths function sets up a listner for the log in state of t
 }
 function fb_handleLogin(_user) { //This functions runs if the log in state of the user changes, for example if they are logged in or out
     if (_user) {
-        console.log("User is logged in")
+        console.log("User is logged in "+_user.displayName)
         GLOBAL_user = _user;
         firebase.database().ref('/Highscores/userInfo/' + GLOBAL_user.uid).update(
             {
@@ -19,11 +19,16 @@ function fb_handleLogin(_user) { //This functions runs if the log in state of th
             document.getElementById("loginWelcome").style.display="none";
         }
         if(document.getElementById("gameForm")){
-            document.getElementById("gameForm").style.display="none";
+            document.getElementById("gameForm").style.display="none"; //Hides the form if you are already logged in
         }
-        if(document.getElementById("gameButton")){
+        if(document.getElementById("gameButton")){ //Shows you a game button that takes you straight to game page 
             document.getElementById("gameButton").style.display="block";
-            showName();
+        }
+        if(document.getElementById("welcomeBack")){ //If you are logged in it says welcome back
+            document.getElementById("welcomeBack").style.display="block"
+        }
+        if(document.getElementById("register")){ //Doesn't show you register text 
+            document.getElementById("register").style.display="none"
         }
         //We do this through style.display="none" which hides the login button
 
@@ -39,12 +44,19 @@ function fb_handleLogin(_user) { //This functions runs if the log in state of th
             document.getElementById("loginWelcome").style.display="block"
         }
         if(document.getElementById("gameForm")){
-            document.getElementById("gameForm").style.display="block"
+            document.getElementById("gameForm").style.display="block" //Shows you the form if you are not logged in
         }
         if(document.getElementById("gameButton")){
-            document.getElementById("gameButton").style.display="none"
+            document.getElementById("gameButton").style.display="none" //Doesn't show you the game button if you are not logged in
+        }
+        if(document.getElementById("register")){
+            document.getElementById("register").style.display="block"
+        }
+        if(document.getElementById("welcomeBack")){
+            document.getElementById("welcomeBack").style.display="none"
         }
     }
+    showName()
 }
 function fb_popupLogin() { //Actually runs the google log in
     var provider = new firebase.auth.GoogleAuthProvider();
@@ -58,5 +70,5 @@ function fb_popupLogin() { //Actually runs the google log in
 async function showName(){
     var snapshot = await firebase.database().ref('/Highscores/userInfo/' + GLOBAL_user.uid).once('value');
     var userDataLogin = snapshot.val()
-    document.getElementById('HTML_OUTPUT3').innerHTML += "Hello " + userDataLogin.username
+    document.getElementById('userDetails').innerHTML += "Hello " + userDataLogin.username
 }

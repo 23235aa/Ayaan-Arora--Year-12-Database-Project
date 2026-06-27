@@ -79,7 +79,6 @@ function drawMenu() {
 	wallBot.visible = false;
 	targetGroup.visible = false;
 	tennisBalls.visible = false;
-	console.log("Menu Screen")
 	textSize(25)
 	text("Press Space Bar", 200, 200)
 	text("Use WASD or ARROWS to move", 50, 300)
