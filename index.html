@@ -21,7 +21,7 @@
       <h1>Register</h1>
       <h2 id="loginWelcome" style="display: none;">Please Log in</h2>
       <button id = "loginButton" onclick="fb_popupLogin()" style = "display: none;">Login</button>
-      <form id="gameForm" onsubmit="return false">
+      <form id="gameForm" onsubmit="return false" style="display: none;">
         <label for="name">Your Name:</label>
         <input type="text" id="name" name="name" required />
   
@@ -30,8 +30,10 @@
         <button onclick="writeForm()">Submit</button>
 </form> 
       </form>
+      <a href="gamePage.html"><button id="gameButton">Go to Game page</button></a>
 </body>
 <div>
+  <div id="HTML_OUTPUT3"></div>
   <script>fb_login()</script>
   <script src = "script.js"></script>
 </div>

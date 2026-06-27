@@ -18,6 +18,13 @@ function fb_handleLogin(_user) { //This functions runs if the log in state of th
         if(document.getElementById("loginWelcome")){
             document.getElementById("loginWelcome").style.display="none";
         }
+        if(document.getElementById("gameForm")){
+            document.getElementById("gameForm").style.display="none";
+        }
+        if(document.getElementById("gameButton")){
+            document.getElementById("gameButton").style.display="block";
+            showName();
+        }
         //We do this through style.display="none" which hides the login button
 
 
@@ -31,6 +38,12 @@ function fb_handleLogin(_user) { //This functions runs if the log in state of th
         if(document.getElementById("loginWelcome")){
             document.getElementById("loginWelcome").style.display="block"
         }
+        if(document.getElementById("gameForm")){
+            document.getElementById("gameForm").style.display="block"
+        }
+        if(document.getElementById("gameButton")){
+            document.getElementById("gameButton").style.display="none"
+        }
     }
 }
 function fb_popupLogin() { //Actually runs the google log in
@@ -41,3 +54,9 @@ function fb_popupLogin() { //Actually runs the google log in
         console.log("User has logged in")
     });
 }  
+
+async function showName(){
+    var snapshot = await firebase.database().ref('/Highscores/userInfo/' + GLOBAL_user.uid).once('value');
+    var userDataLogin = snapshot.val()
+    document.getElementById('HTML_OUTPUT3').innerHTML += "Hello " + userDataLogin.username
+}
