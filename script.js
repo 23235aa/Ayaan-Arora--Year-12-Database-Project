@@ -1,3 +1,5 @@
+let rowCounter=1 //Keeps track of what row to update next for tennis fever
+let rowCounterGeoDash = 1 //Keeps track of what rows to update next for Geo Dash
 function writeForm() {
     //Check if the user is logged in by seeing if Global_user is empty
     if (!GLOBAL_user) {
@@ -47,10 +49,10 @@ function fb_displayHighScoresTennisFever(snapshot) {
 //data is a single user entry from the snapshot
 function fb_showOneScoreTennisFever(data) {
     let entry = data.val()
-    document.getElementById('HTML_OUTPUT').innerHTML +=
-     "<img src='"+ entry.userProfilePicture + "'width = '50' height = '50'>" + entry.username + ": " +
-      entry.tennisfeverscore * -1 + "<br>" //To show the scores in positive when it is displayed on the leaderboard.
-    //Multliplying it by negative is what allows the computer to store the score from highest to lowest
+    let table = document.getElementById("highScoreTable")
+    table.rows[rowCounter].cells[0].innerHTML = "<img src='"+ entry.userProfilePicture + "'width = '50' height = '50'>" + entry.username + ": "
+    table.rows[rowCounter].cells[1].innerHTML = entry.tennisfeverscore*-1
+    rowCounter++ //We plus the row counter becuase then it updates the second users info in the second row and repats the process
 }
 if (document.getElementById('HTML_OUTPUT')) {
     fb_readHighScoresTennisFever(); //When it lands on a page that has the id called 'HTML_OUTPUT' it does the fb_readHighscores function
@@ -70,15 +72,12 @@ function fb_displayHighScoresGeoDash(snapshot2) {
 //data2 is a single user entry from the snapshot2
 function fb_showOneScoreGeoDash(data2) {
     let entry2 = data2.val()
-    document.getElementById('HTML_OUTPUT2').innerHTML += "<img src='"+ entry2.userProfilePicture + "'width = '50' height = '50'>"+ entry2.username + ": " + entry2.Geodashscore * -1 + "<br>" // Multiply the score by negative 1 so it displays as a positive number.
+   let tableGeoDash = document.getElementById("highScoreTableGeoDash")
+    tableGeoDash.rows[rowCounterGeoDash].cells[0].innerHTML = "<img src='"+ entry2.userProfilePicture + "'width = '50' height = '50'>" + entry2.username + ": "
+    tableGeoDash.rows[rowCounterGeoDash].cells[1].innerHTML = entry2.Geodashscore*-1
+    rowCounterGeoDash++ //We plus the row counter becuase then it updates the second users info in the second row and repats the process
 }
 if (document.getElementById('HTML_OUTPUT2')) {
     fb_readHighScoresGeoDash() //When it lands on a page that has the id called 'HTML_OUTPUT2' it does the fb_readHighscores2 function
     //In our case this happens when it lands on the GeoDashLeaderboard.html
-}
-async function showUserNameGamePage(){
-    console.log("test")
-    var snapshot = await firebase.database().ref('/Highscores/userInfo/' + GLOBAL_user.uid).once('value')
-    var userNameShow = snapshot.val()
-    document.getElementById('HTML_OUTPUT4').innerHTML += "Testing words"
 }

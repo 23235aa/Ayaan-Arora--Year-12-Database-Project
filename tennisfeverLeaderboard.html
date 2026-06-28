@@ -1,28 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tennis fever Leaderboard</title>
   <link rel="stylesheet" href="style.css" />
-   <!-- firebase start ****************************************-->
+  <!-- firebase start ****************************************-->
   <!-- Firebase App (core Firebase SDK) is always required & must be listed 1st -->
   <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-app.js"></script>
   <!-- Add Firebase products that you want to use -->
   <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-database.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-analytics.js"></script>
-  <!-- firebase end ******************************************-->   
+  <!-- firebase end ******************************************-->
   <script src="fb_setup.js"></script>
   <script src="fb_io.js"></script>
 </head>
+
 <body>
-    <div class="container">
-      <h1>Tennis fever Leaderboard</h1>
-        </div>
-</body>
-<div id = "HTML_OUTPUT"></div>
-  <script src="script.js"></script>
+  <div class="container">
+    <h1>Tennis fever Leaderboard</h1>
   </div>
-
-
+  <table id="highScoreTable">
+    <tr>
+      <th>
+        Users
+      </th>
+      <th>
+        Scores
+      </th>
+    </tr>
+    <tr>
+      <td>
+        Cell 1
+      </td>
+      <td>
+        Cell 2
+      </td>
+      </tr>
+      <tr>
+        <td>Cell 3</td>
+        <td>Cell 4</td>
+      </tr>
+       <tr>
+        <td>Cell 5</td>
+        <td>Cell 6</td>
+      </tr>
+       <tr>
+        <td>Cell 7</td>
+        <td>Cell 8</td>
+      </tr>
+       <tr>
+        <td>Cell 9</td>
+        <td>Cell 10</td>
+      </tr>
+    </tr>
+  </table>
+</body>
+<div id="HTML_OUTPUT"></div>
+<script src="script.js"></script>
+</div>
