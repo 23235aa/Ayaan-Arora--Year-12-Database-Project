@@ -15,68 +15,15 @@ async function fb_handleLogin(_user) { //This functions runs if the log in state
         var snapshot = await firebase.database().ref('/Highscores/userInfo/' + GLOBAL_user.uid).once('value')
         var userLogin = snapshot.val()
         if (userLogin && userLogin.age && userLogin.username) { //
-            if (document.getElementById("loginButton")) {
-                document.getElementById("loginButton").style.display = "none"; //If the user has already logged into the site before the login button does not appear
-            }
-            if (document.getElementById("loginWelcome")) {
-                document.getElementById("loginWelcome").style.display = "none";
-            }
-            if (document.getElementById("gameForm")) {
-                document.getElementById("gameForm").style.display = "none"; //Hides the form if you are already logged in
-            }
-            if (document.getElementById("gameButton")) { //Shows you a game button that takes you straight to game page 
-                document.getElementById("gameButton").style.display = "block";
-            }
-            if (document.getElementById("welcomeBack")) { //If you are logged in it says welcome back
-                document.getElementById("welcomeBack").style.display = "block"
-            }
-            if (document.getElementById("register")) { //Doesn't show you register text 
-                document.getElementById("register").style.display = "none"
-            }
-            //We do this through style.display="none" which hides the login button
+            userLoggedInFlow()
         }
         else {
-            if (document.getElementById("loginButton")) {
-                document.getElementById("loginButton").style.display = "block" //If the user is not logged in it displays the button
-            }
-            if (document.getElementById("loginWelcome")) {
-                document.getElementById("loginWelcome").style.display = "block"
-            }
-            if (document.getElementById("gameForm")) {
-                document.getElementById("gameForm").style.display = "block" //Shows you the form if you are not logged in
-            }
-            if (document.getElementById("gameButton")) {
-                document.getElementById("gameButton").style.display = "none" //Doesn't show you the game button if you are not logged in
-            }
-            if (document.getElementById("register")) {
-                document.getElementById("register").style.display = "block"
-            }
-            if (document.getElementById("welcomeBack")) {
-                document.getElementById("welcomeBack").style.display = "none"
-            }
+            userLoggedOutFlow()
         }
 
     } else {
         console.log("User is NOT logged in - Starting the popup process")
-        //fb_popupLogin();
-        if (document.getElementById("loginButton")) {
-            document.getElementById("loginButton").style.display = "block" //If the user is not logged in it displays the button
-        }
-        if (document.getElementById("loginWelcome")) {
-            document.getElementById("loginWelcome").style.display = "block"
-        }
-        if (document.getElementById("gameForm")) {
-            document.getElementById("gameForm").style.display = "block" //Shows you the form if you are not logged in
-        }
-        if (document.getElementById("gameButton")) {
-            document.getElementById("gameButton").style.display = "none" //Doesn't show you the game button if you are not logged in
-        }
-        if (document.getElementById("register")) {
-            document.getElementById("register").style.display = "block"
-        }
-        if (document.getElementById("welcomeBack")) {
-            document.getElementById("welcomeBack").style.display = "none"
-        }
+         userLoggedOutFlow()
     }
     showName()
 }
@@ -93,4 +40,45 @@ async function showName() {
     var snapshot = await firebase.database().ref('/Highscores/userInfo/' + GLOBAL_user.uid).once('value');
     var userDataLogin = snapshot.val()
     document.getElementById('userDetails').innerHTML += "Hello " + userDataLogin.username
+}
+function userLoggedInFlow() {
+    if (document.getElementById("loginButton")) {
+        document.getElementById("loginButton").style.display = "none"; //If the user has already logged into the site before the login button does not appear
+    }
+    if (document.getElementById("loginWelcome")) {
+        document.getElementById("loginWelcome").style.display = "none";
+    }
+    if (document.getElementById("gameForm")) {
+        document.getElementById("gameForm").style.display = "none"; //Hides the form if you are already logged in
+    }
+    if (document.getElementById("gameButton")) { //Shows you a game button that takes you straight to game page 
+        document.getElementById("gameButton").style.display = "block";
+    }
+    if (document.getElementById("welcomeBack")) { //If you are logged in it says welcome back
+        document.getElementById("welcomeBack").style.display = "block"
+    }
+    if (document.getElementById("register")) { //Doesn't show you register text 
+        document.getElementById("register").style.display = "none"
+    }
+    //We do this through style.display="none" which hides the login button
+}
+function userLoggedOutFlow() {
+    if (document.getElementById("loginButton")) {
+        document.getElementById("loginButton").style.display = "block" //If the user is not logged in it displays the button
+    }
+    if (document.getElementById("loginWelcome")) {
+        document.getElementById("loginWelcome").style.display = "block"
+    }
+    if (document.getElementById("gameForm")) {
+        document.getElementById("gameForm").style.display = "block" //Shows you the form if you are not logged in
+    }
+    if (document.getElementById("gameButton")) {
+        document.getElementById("gameButton").style.display = "none" //Doesn't show you the game button if you are not logged in
+    }
+    if (document.getElementById("register")) {
+        document.getElementById("register").style.display = "block"
+    }
+    if (document.getElementById("welcomeBack")) {
+        document.getElementById("welcomeBack").style.display = "none"
+    }
 }
