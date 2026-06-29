@@ -79,7 +79,6 @@ function drawMenu() {
 	wallBot.visible = false;
 	targetGroup.visible = false;
 	tennisBalls.visible = false;
-	console.log("Menu Screen")
 	textSize(25)
 	text("Press Space Bar", 200, 200)
 	text("Use WASD or ARROWS to move", 50, 300)
@@ -208,17 +207,20 @@ function shootTennisBalls() {
 }
 //This function actually saves and writes the scores into firebase for tennisfever
 async function saveScore() {
-	//Await waits until frebase gets the information from the userInfo branch. I need this await because without it my snapshot will be empty and then my code will crash.
+	//Await waits until frebase gets the information from the userInfo branch. I need this await because without it my snapshot will be empty and then the code will crash.
 //This is because userData will be set as nothing if snapshot is not set
 	var snapshot = await firebase.database().ref('/Highscores/userInfo/' + GLOBAL_user.uid).once('value');
 	var userData = snapshot.val(); //.val turns the snapshot into a usable object and we strore that object in a varaible
-	//Here it writes the info into a new branch called tennis fever. We await(pause) until the info is actually done
-	//Then we console log "save score" to see if it worked
-	await firebase.database().ref('/Highscores/tennisfever/' + GLOBAL_user.uid).update({
+	//We read the tenninsfever branch too see if the user has a previous entry or if it is their first time, we await for the same reason as before
+	var recentTennisfeverScoreSnapshot = await firebase.database().ref('/Highscores/tennisfever/' + GLOBAL_user.uid).once('value');
+	var recentTennisFeverData = recentTennisfeverScoreSnapshot.val(); //Store the snapshot in a varible called recentTennisFeverData
+	if (recentTennisFeverData ===null || score*-1 < recentTennisFeverData.tennisfeverscore){ //If the user has not played tennisfever before (null)
+		//Or if their score is higher than their previous score we tell firebase to update their information
+		await firebase.database().ref('/Highscores/tennisfever/' + GLOBAL_user.uid).update({
 		username: userData.username,
 		userAge: userData.age,
 		userProfilePicture: userData.profilePicture,
 		tennisfeverscore: score * -1 //Multiply by negative one to display the scores in order
 	});
-	console.log("score saved")
+	}
 }

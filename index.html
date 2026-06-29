@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Database Projec</title>
+  <title>Game Arcade</title>
   <link rel="stylesheet" href="style.css" />
    <!-- firebase start ****************************************-->
   <!-- Firebase App (core Firebase SDK) is always required & must be listed 1st -->
@@ -18,9 +18,11 @@
 </head>
 <body>
     <div class="container">
-      <h1>Choose Your Game</h1>
-      <button onclick=" fb_login()">Log in</button>
-      <form id="gameForm" onsubmit="return false">
+      <h1 id="register" style="display: none;">Register</h1>
+      <h1 id ="welcomeBack" style="display: none;">Welcome Back</h1>
+      <h2 id="loginWelcome" style="display: none;">Please Log in</h2>
+      <button id = "loginButton" onclick="fb_popupLogin()" style = "display: none;">Login</button>
+      <form id="gameForm" onsubmit="return false" style="display: none;">
         <label for="name">Your Name:</label>
         <input type="text" id="name" name="name" required />
   
@@ -29,7 +31,11 @@
         <button onclick="writeForm()">Submit</button>
 </form> 
       </form>
+      <a href="gamePage.html"><button id="gameButton">Go to Game page</button></a>
 </body>
+
 <div>
+  <div id="userDetails"></div>
+  <script>fb_login()</script>
   <script src = "script.js"></script>
 </div>
