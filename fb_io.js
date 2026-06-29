@@ -39,7 +39,9 @@ function fb_popupLogin() { //Actually runs the google log in
 async function showName() {
     var snapshot = await firebase.database().ref('/Highscores/userInfo/' + GLOBAL_user.uid).once('value');
     var userDataLogin = snapshot.val()
-    document.getElementById('userDetails').innerHTML += "Hello " + userDataLogin.username
+    if (document.getElementById('userDetails')){
+        document.getElementById('userDetails').innerHTML += "Hello " + userDataLogin.username
+    }
 }
 function userLoggedInFlow() {
     if (document.getElementById("loginButton")) {
