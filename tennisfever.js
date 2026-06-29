@@ -222,5 +222,7 @@ async function saveScore() {
 		userProfilePicture: userData.profilePicture,
 		tennisfeverscore: score * -1 //Multiply by negative one to display the scores in order
 	});
+	alert("New High score !!!");
+        return;
 	}
 }
