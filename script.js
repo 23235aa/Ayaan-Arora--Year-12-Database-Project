@@ -1,5 +1,6 @@
-let rowCounter=1 //Keeps track of what row to update next for tennis fever
-let rowCounterGeoDash = 1 //Keeps track of what rows to update next for Geo Dash
+let rowCounter=1 //Keeps track of what row to update next for tennis fever. Start by 1 becuase we don't want to update the heading 
+let rowCounterGeoDash = 1 //Keeps track of what rows to update next for Geo Dash, start by 1 becuase we don't want to update the heading
+//This fucntions job is to get the form data and update that info in the userInfo branch
 function writeForm() {
     //Check if the user is logged in by seeing if Global_user is empty
     if (!GLOBAL_user) {
@@ -49,9 +50,9 @@ function fb_displayHighScoresTennisFever(snapshot) {
 //data is a single user entry from the snapshot
 function fb_showOneScoreTennisFever(data) {
     let entry = data.val()
-    let table = document.getElementById("highScoreTable")
-    table.rows[rowCounter].cells[0].innerHTML = "<img src='"+ entry.userProfilePicture + "'width = '50' height = '50'>" + entry.username + ": "
-    table.rows[rowCounter].cells[1].innerHTML = entry.tennisfeverscore*-1
+    let table = document.getElementById("highScoreTable") //Get the table by its id 
+    table.rows[rowCounter].cells[0].innerHTML = "<img src='"+ entry.userProfilePicture + "'width = '50' height = '50'>" + entry.username + ": " //Show their username and profile picture
+    table.rows[rowCounter].cells[1].innerHTML = entry.tennisfeverscore*-1 //Multiply the score by -1 to display the score in positive
     rowCounter++ //We plus the row counter becuase then it updates the second users info in the second row and repats the process
 }
 if (document.getElementById('HTML_OUTPUT')) {
@@ -61,7 +62,7 @@ if (document.getElementById('HTML_OUTPUT')) {
 function fb_readHighScoresGeoDash() {//The function reads the high scores of the users from firbase for Geodash
     firebase.database().ref('/Highscores/Geodash').orderByChild('Geodashscore').limitToFirst(5).once('value', fb_displayHighScoresGeoDash)
     //Tells the computer to get the information from the Geodash branch in firebase
-    //The .orderByChild tells the computer to order the users score that they got for tennisfever from lowest to highest
+    //The .orderByChild tells the computer to order the users score that they got for Geodash from lowest to highest
     //The limiToFirst(5) gets the 5 highest scores
 }
 //Gets the top 5 users with the highest score for Geo dash
@@ -72,9 +73,9 @@ function fb_displayHighScoresGeoDash(snapshot2) {
 //data2 is a single user entry from the snapshot2
 function fb_showOneScoreGeoDash(data2) {
     let entry2 = data2.val()
-   let tableGeoDash = document.getElementById("highScoreTableGeoDash")
-    tableGeoDash.rows[rowCounterGeoDash].cells[0].innerHTML = "<img src='"+ entry2.userProfilePicture + "'width = '50' height = '50'>" + entry2.username + ": "
-    tableGeoDash.rows[rowCounterGeoDash].cells[1].innerHTML = entry2.Geodashscore*-1
+   let tableGeoDash = document.getElementById("highScoreTableGeoDash") //Get document by its id
+    tableGeoDash.rows[rowCounterGeoDash].cells[0].innerHTML = "<img src='"+ entry2.userProfilePicture + "'width = '50' height = '50'>" + entry2.username + ": " //Display the username and picture
+    tableGeoDash.rows[rowCounterGeoDash].cells[1].innerHTML = entry2.Geodashscore*-1 //Multiply their score by -1 to display in positive
     rowCounterGeoDash++ //We plus the row counter becuase then it updates the second users info in the second row and repats the process
 }
 if (document.getElementById('HTML_OUTPUT2')) {
