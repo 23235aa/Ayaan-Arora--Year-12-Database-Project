@@ -15,16 +15,16 @@ async function fb_handleLogin(_user) { //This functions runs if the log in state
         var userLogin = snapshot.val() //Store the snapshot inside the varaible and use .val() to turn it into an object
         if (userLogin && userLogin.age && userLogin.username) { //If the user has data in the userInfo branch and if they have an age and username they don't have to fill in the form again
             userLoggedInFlow() //Is a function for people that are already logged in and have completed the registration
+             showName() //Shows the name of the user 
         }
         else { //If they don't have any data in the userInfo branch or if they don't have  an age or username they have to fill in the form and login
-            userLoggedOutFlow() //Is a function for people that are not logged in or haven't done the registration
+            userLoggedOutFlowRegister() //Is a function for people that are not logged in or haven't done the registration
         }
 
     } else { //If the user hasn't logged in or signed up through the google log in
         console.log("User is NOT logged in - Starting the popup process")
          userLoggedOutFlow() //Goes through the log in and registration process
-    }
-    showName() //Shows the name of the user 
+    } 
 }
 function fb_popupLogin() { //Actually runs the google log in
     var provider = new firebase.auth.GoogleAuthProvider();
@@ -71,6 +71,26 @@ function userLoggedOutFlow() {
     }
     if (document.getElementById("loginWelcome")) {
         document.getElementById("loginWelcome").style.display = "block"
+    }
+    if (document.getElementById("gameForm")) {
+        document.getElementById("gameForm").style.display = "block" //Shows you the form if you are not logged in
+    }
+    if (document.getElementById("gameButton")) {
+        document.getElementById("gameButton").style.display = "none" //Doesn't show you the game button if you are not logged in
+    }
+    if (document.getElementById("register")) {
+        document.getElementById("register").style.display = "block"
+    }
+    if (document.getElementById("welcomeBack")) {
+        document.getElementById("welcomeBack").style.display = "none"
+    }
+}
+function userLoggedOutFlowRegister(){ //This function runs if the user has logged in but not filled out the form
+    if (document.getElementById("loginButton")) {
+        document.getElementById("loginButton").style.display = "none" //If the user is not logged in it displays the button
+    }
+    if (document.getElementById("loginWelcome")) {
+        document.getElementById("loginWelcome").style.display = "none"
     }
     if (document.getElementById("gameForm")) {
         document.getElementById("gameForm").style.display = "block" //Shows you the form if you are not logged in
