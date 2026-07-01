@@ -22,7 +22,6 @@ if(!scoreSavedGeodash){//checks if scoreSaved is still false
     scoreSavedGeodash = true;// Turns the scoreSaved to true so the if statment can't be triggered again
 		//This stops the score being saved multiple times
        saveScoreGeodash() //Tells it to go to saveScoreGeodash function
-
    }
 
 }
@@ -42,6 +41,8 @@ async function saveScoreGeodash(){
         userProfilePicture: userDataGeodash.profilePicture, //
         Geodashscore: score * -1 // We multiply the score by negative 1 so the scores are stored in negative. This helps display them in order
     });
+    alert("New High score !!!");
+        return;
     }
 }
 
