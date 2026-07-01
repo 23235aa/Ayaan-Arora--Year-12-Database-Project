@@ -18,7 +18,7 @@ async function fb_handleLogin(_user) { //This functions runs if the log in state
              showName() //Shows the name of the user 
         }
         else { //If they don't have any data in the userInfo branch or if they don't have  an age or username they have to fill in the form and login
-            userLoggedOutFlowRegister() //Is a function for people that are not logged in or haven't done the registration
+            userLoggedInFlowRegister() //Is a function for people that are not logged in or haven't done the registration
         }
 
     } else { //If the user hasn't logged in or signed up through the google log in
@@ -85,7 +85,7 @@ function userLoggedOutFlow() {
         document.getElementById("welcomeBack").style.display = "none"
     }
 }
-function userLoggedOutFlowRegister(){ //This function runs if the user has logged in but not filled out the form
+function userLoggedInFlowRegister(){ //This function runs if the user has logged in but not filled out the form
     if (document.getElementById("loginButton")) {
         document.getElementById("loginButton").style.display = "none" //If the user is not logged in it displays the button
     }
